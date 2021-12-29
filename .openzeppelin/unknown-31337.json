@@ -1,0 +1,198 @@
+{
+  "manifestVersion": "3.2",
+  "proxies": [
+    {
+      "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+      "txHash": "0x2f8fb78feb53157dcfc4faf65069303c2c807e9a1c2a0f91c19b1c70dc6f36e3",
+      "kind": "uups"
+    },
+    {
+      "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      "txHash": "0xb5a2d4eff2889cf9055afd8de24e8602328027792393935d9ec9867d4ecf3626",
+      "kind": "uups"
+    },
+    {
+      "address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+      "txHash": "0x5f25199eef05651d718e729b7278685c1a984e0f2088c73c5e86bf96829b12d1",
+      "kind": "uups"
+    },
+    {
+      "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "txHash": "0x406c4e721f7a66329ac0625e27c5abfe67283f798a2910af0d002a975237209c",
+      "kind": "uups"
+    },
+    {
+      "address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+      "txHash": "0x0e95fd7d31f47bd73c2e4d03b2583eebd438fd26250280c17638ba816f8e180c",
+      "kind": "uups"
+    },
+    {
+      "address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+      "txHash": "0x91a24d1f311890c30313a96cfb95b4ab600dd035d621123b689331c75bceb970",
+      "kind": "uups"
+    },
+    {
+      "address": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+      "txHash": "0xbffd461bd1c620b8ef00437ae8f699144f2e3d8d2a455bd0a77c4c1e465d6c80",
+      "kind": "uups"
+    }
+  ],
+  "impls": {
+    "52c008a3a14b7ccf26a5cbb029e5021551bc87bdcf6090e4b22b26549c84dc1f": {
+      "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+      "txHash": "0x76d55f2377f09f01e5b2ef5f1339df195ab057e65289703349f2d4ddcd1414fe",
+      "layout": {
+        "storage": [
+          {
+            "contract": "Initializable",
+            "label": "_initialized",
+            "type": "t_bool",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:39"
+          },
+          {
+            "contract": "Initializable",
+            "label": "_initializing",
+            "type": "t_bool",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:44"
+          },
+          {
+            "contract": "ContextUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:31"
+          },
+          {
+            "contract": "OwnableUpgradeable",
+            "label": "_owner",
+            "type": "t_address",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:22"
+          },
+          {
+            "contract": "OwnableUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)49_storage",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:82"
+          },
+          {
+            "contract": "ERC1967UpgradeUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/ERC1967/ERC1967UpgradeUpgradeable.sol:215"
+          },
+          {
+            "contract": "UUPSUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol:81"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "index",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:11"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "rewardsToken",
+            "type": "t_contract(IERC20)1267",
+            "src": "contracts/CheeseGame.sol:12"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "stakedToken",
+            "type": "t_contract(IERC1155)1189",
+            "src": "contracts/CheeseGame.sol:13"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "MOUSE",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:15"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "CAT",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:16"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "TRAP",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:17"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "userInfo",
+            "type": "t_mapping(t_address,t_struct(UserInfo)1327_storage)",
+            "src": "contracts/CheeseGame.sol:19"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "traps",
+            "type": "t_array(t_address)dyn_storage",
+            "src": "contracts/CheeseGame.sol:20"
+          }
+        ],
+        "types": {
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_contract(IERC20)1267": {
+            "label": "contract IERC20"
+          },
+          "t_contract(IERC1155)1189": {
+            "label": "contract IERC1155"
+          },
+          "t_mapping(t_address,t_struct(UserInfo)1327_storage)": {
+            "label": "mapping(address => struct CheeseGame.UserInfo)"
+          },
+          "t_address": {
+            "label": "address"
+          },
+          "t_struct(UserInfo)1327_storage": {
+            "label": "struct CheeseGame.UserInfo",
+            "members": [
+              {
+                "label": "mouseBalance",
+                "type": "t_uint256"
+              },
+              {
+                "label": "catBalance",
+                "type": "t_uint256"
+              },
+              {
+                "label": "trapBalance",
+                "type": "t_uint256"
+              },
+              {
+                "label": "mouseIndex",
+                "type": "t_uint256"
+              },
+              {
+                "label": "catIndex",
+                "type": "t_uint256"
+              },
+              {
+                "label": "mouseTimestamp",
+                "type": "t_uint256"
+              }
+            ]
+          },
+          "t_array(t_address)dyn_storage": {
+            "label": "address[]"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]"
+          },
+          "t_bool": {
+            "label": "bool"
+          }
+        }
+      }
+    }
+  }
+}
