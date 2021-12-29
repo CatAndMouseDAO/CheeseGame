@@ -130,8 +130,9 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
             stakedToken.safeTransferFrom(address(this), msg.sender, id, amount, "");
             for(uint i = 0; i < miceStolen; i++){
                 if(stakedToken.balanceOf(address(this), TRAP) > 0){
-                address winner = traps[getTrapWinnerId()];
-                removeTrap(winner);
+                uint winnerIdx = getTrapWinnerId();
+                address winner = traps[winnerIdx];
+                removeTrapByIdx(winnerIdx);
                 stakedToken.safeTransferFrom(address(this), winner, MOUSE, 1, "");
                 stakedToken.safeTransferFrom(address(this), winner, TRAP, 1, "");
                 //rewardsToken.transferFrom(address(this), winner, rpm);
@@ -188,6 +189,11 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
            traps[s] = traps[traps.length - 1];
            traps.pop();
        }
+    }
+
+   function removeTrapByIdx(uint idx) public {
+        traps[idx] = traps[traps.length - 1];
+        traps.pop();
     }
 
     function onERC1155Received(address operator, address, uint256, uint256, bytes memory) external virtual returns (bytes4) {
