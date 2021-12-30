@@ -169,7 +169,13 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
             stakedToken.safeTransferFrom(address(this), msg.sender, _id, amount, "");
 
             //rewardsToken.transferFrom(address(this), msg.sender, miceRewards);
+        } else if(_id == CAT) {
+            uint256 totalRewards = getRewards(msg.sender, _id);
+            adjustBalances(false, _id, _amount);
+            rewardsToken.transferFrom(address(this), msg.sender, totalRewards);
+            stakedToken.safeTransferFrom(address(this), msg.sender, _id, _amount, "");
         } else {
+            adjustBalances(false, _id, _amount);
             stakedToken.safeTransferFrom(address(this), msg.sender, _id, _amount, "");
         }
     }
