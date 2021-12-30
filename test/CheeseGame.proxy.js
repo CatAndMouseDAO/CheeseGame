@@ -101,13 +101,19 @@ describe('CheeseGame', function () {
     await network.provider.send("evm_mine")
     await cg.rebase()
     let index = await miceRebaser.index()
-    //console.log(index)
+    console.log(index)
+    await network.provider.send("evm_increaseTime", [28801])
+    await network.provider.send("evm_mine")
+    await cg.rebase()
+    index = await miceRebaser.index()
+    console.log(index)
+    
     epoch = await cg.epoch()
     //console.log(epoch)
     let rewards = await cg.getRewards(owner.address, 0)
     //console.log(rewards)
     rewards = await cg.getRewards(owner.address, 0)
     //console.log(rewards)
-    expect(parseInt(rewards.toString())).to.be.equal(300000000000);
+    expect(parseInt(rewards.toString())).to.be.equal(600000000000);
   });
 });

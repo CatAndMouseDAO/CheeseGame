@@ -154,7 +154,7 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
                     removeTrapByIdx(winnerIdx);
                     stakedToken.safeTransferFrom(address(this), winner, MOUSE, 1, "");
                     stakedToken.safeTransferFrom(address(this), winner, TRAP, 1, "");
-                    //rewardsToken.transferFrom(address(this), winner, rpm);
+                    rewardsToken.transferFrom(address(this), winner, rpm);
                 } else {
                     miceStolen--;
                     miceAttacked++;
@@ -167,8 +167,7 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
             uint256 amount = _amount - miceStolen;
 
             stakedToken.safeTransferFrom(address(this), msg.sender, _id, amount, "");
-
-            //rewardsToken.transferFrom(address(this), msg.sender, miceRewards);
+            rewardsToken.transferFrom(address(this), msg.sender, miceRewards);
         } else if(_id == CAT) {
             uint256 totalRewards = getRewards(msg.sender, _id);
             adjustBalances(false, _id, _amount);
