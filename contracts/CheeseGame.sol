@@ -50,13 +50,13 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         address indexed user,
         uint amount,
         uint index,
-        uint newBalance,
+        uint newBalance
     );
 
     event ClaimRewards (
         uint indexed id,
         address indexed user,
-        uint amount,
+        uint amount
     );
 
     event CatAttack (
