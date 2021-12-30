@@ -37,6 +37,39 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         mapping (uint256 => uint256) timestamps;
     }
 
+    event Stake (
+        uint indexed id,
+        address indexed user,
+        uint amount,
+        uint index,
+        uint newBalance
+    );
+
+    event Unstake (
+        uint indexed id,
+        address indexed user,
+        uint amount,
+        uint index,
+        uint newBalance,
+    );
+
+    event ClaimRewards (
+        uint indexed id,
+        address indexed user,
+        uint amount,
+    );
+
+    event CatAttack (
+        address indexed unstaker,
+        uint cheezStolen
+    );
+
+    event MouseTrapped (
+        address indexed unstaker,
+        address indexed trapper,
+        uint cheezStolen
+    );
+
     uint256 private _NOT_ENTERED;
     uint256 private _ENTERED;
 
@@ -120,6 +153,7 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
                     addTrap(msg.sender);
                 }
             }
+            emit Stake(_id, msg.sender, _amount, userInfo[msg.sender].indexes[_id], userInfo[msg.sender].balances[_id]);
         } else {
             if(_id == MOUSE) {
                 userInfo[msg.sender].balances[MOUSE] = userInfo[msg.sender].balances[MOUSE] - _amount;
@@ -134,6 +168,7 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
                     removeTrap(msg.sender);
                 }
             }
+            emit Unstake(_id, msg.sender, _amount, userInfo[msg.sender].indexes[_id], userInfo[msg.sender].balances[_id]);
         }
     }
 
@@ -179,6 +214,7 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
                     stakedToken.safeTransferFrom(address(this), winner, MOUSE, 1, "");
                     stakedToken.safeTransferFrom(address(this), winner, TRAP, 1, "");
                     rewardsToken.transferFrom(address(this), winner, rpm);
+                    emit MouseTrapped(msg.sender, winner, rpm);
                 } else {
                     miceStolen--;
                     miceAttacked++;
@@ -192,6 +228,7 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
 
             stakedToken.safeTransferFrom(address(this), msg.sender, _id, amount, "");
             rewardsToken.transferFrom(address(this), msg.sender, miceRewards);
+            emit CatAttack(msg.sender, miceStolen);
         } else if(_id == CAT) {
             uint256 totalRewards = getRewards(msg.sender, _id);
             adjustBalances(false, _id, _amount);
@@ -216,6 +253,7 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
                 userInfo[msg.sender].indexes[id] = rebasers[id].index();
             }
             rewardsToken.transferFrom(address(this), msg.sender, rewards);
+            emit ClaimRewards(id, msg.sender, rewards);
         }
     }
 
