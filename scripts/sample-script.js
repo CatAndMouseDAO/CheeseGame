@@ -14,12 +14,25 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const Greeter = await hre.ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("Hello, Hardhat!");
+  [owner, user1] = await ethers.getSigners();
+  const initialIndex = '1000000000'
 
-  await greeter.deployed();
+  NFT = await ethers.getContractFactory("NFT");
+  nft = await NFT.deploy();
 
-  console.log("Greeter deployed to:", greeter.address);
+  CHEEZ = await ethers.getContractFactory("CHEEZ");
+  cheez = await CHEEZ.deploy(0);
+
+  Rebaser = await ethers.getContractFactory("contracts/Rebase.sol:Rebaser");
+  miceRebaser = await Rebaser.deploy();
+  catRebaser = await Rebaser.deploy()
+  await miceRebaser.setIndex(initialIndex);
+  await catRebaser.setIndex(initialIndex);
+
+  CG = await ethers.getContractFactory("CheeseGame");
+  cg = await upgrades.deployProxy(CG, [nft.address, cheez.address, miceRebaser.address, catRebaser.address], { kind: 'uups' });
+  console.log("cg deployed to: ", cg.address)
+
 }
 
 // We recommend this pattern to be able to use async/await everywhere
