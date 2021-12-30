@@ -7,38 +7,65 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 
+contract IRebaser {
+    function rebase( uint256 profit_, uint256 epoch_) public returns ( uint256 ) {}
+    function index() public view returns ( uint256 ) {}
+}
+
 contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
-    uint256 public index;
     IERC20 public rewardsToken;
     IERC1155 public stakedToken;
 
-    uint public MOUSE;
-    uint public CAT;
-    uint public TRAP;
+    IRebaser[] public rebasers;
+
+    uint256 public rewardRate;
+    uint256 public nextCatPool;
+
+    uint256 public MOUSE;
+    uint256 public CAT;
+    uint256 public TRAP;
+
+    uint256 public lastRebaseTimestamp;
+    uint256 public epoch;
 
     mapping (address => UserInfo) userInfo;
     address[] public traps;
 
     struct UserInfo {
-        uint mouseBalance;
-        uint catBalance;
-        uint trapBalance;
-        uint mouseIndex;
-        uint catIndex;
-        uint mouseTimestamp;
+        mapping (uint256 => uint256) balances;
+        mapping (uint256 => uint256) indexes;
+        mapping (uint256 => uint256) timestamps;
     }
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() initializer {}
 
-    function initialize(address _stakedToken) initializer public {
+    function initialize(
+        address _stakedToken,
+        address _rewardsToken,
+        address _miceRebaser,
+        address _catRebaser
+    ) initializer public {
         __Ownable_init();
         __UUPSUpgradeable_init();
-        stakedToken = IERC1155(_stakedToken);
-        index = 1100000000;
+
         MOUSE = 0;
         CAT = 1;
         TRAP = 2;
+
+        rewardRate = 600000000000;
+
+        stakedToken = IERC1155(_stakedToken);
+        rewardsToken = IERC20(_rewardsToken);
+
+        rebasers.push(IRebaser(_miceRebaser));
+        rebasers.push(IRebaser(_catRebaser));
+
+        lastRebaseTimestamp = block.timestamp;
+    }
+
+    function setRewardRate(uint256 _rewardRate) public onlyOwner {
+        rewardRate = _rewardRate;
     }
 
     function _authorizeUpgrade(address newImplementation)
@@ -47,116 +74,134 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         override
     {}
 
-    function stake(uint _id, uint _amount) public {
-        stakedToken.safeTransferFrom(msg.sender, address(this), _id, _amount, "");
-
-        uint _mouseTimestamp = userInfo[msg.sender].mouseTimestamp;
-        uint _mouseBalance = userInfo[msg.sender].mouseBalance;
-        uint _catBalance = userInfo[msg.sender].catBalance;
-        uint _trapBalance = userInfo[msg.sender].trapBalance;
-        uint _mouseIndex = userInfo[msg.sender].mouseIndex;
-        uint _catIndex = userInfo[msg.sender].catIndex;
-
-        if(_id == MOUSE) {
-            _mouseBalance = _mouseBalance + _amount;
-            _mouseIndex = index;
-            _mouseTimestamp = block.timestamp;
-        } else if(_id == CAT) {
-            _catBalance = _catBalance + _amount;
-            _catIndex = index;
-        } else if(_id == TRAP) {
-            _trapBalance = _trapBalance + _amount;
-            for (uint i = 0; i < _amount; i++) {
-                addTrap(msg.sender);
-            }
+    function rebase() public {
+        if(lastRebaseTimestamp + 28800 < block.timestamp){
+            lastRebaseTimestamp = lastRebaseTimestamp + 28800;
+            rebasers[MOUSE].rebase(rewardRate, epoch);
+            rebasers[CAT].rebase(nextCatPool, epoch);
+            nextCatPool = 0;
+            epoch++;
         }
-
-        userInfo[msg.sender] = UserInfo(_mouseBalance, _catBalance, _trapBalance, _mouseIndex, _catIndex, _mouseTimestamp);
     }
 
-    function unstake(uint _id, uint _amount) external {
-        if(_id == MOUSE){
-            require(_amount <= userInfo[msg.sender].mouseBalance, "Unstake: amount too high" );
-            require((block.timestamp - userInfo[msg.sender].mouseTimestamp) >= 172800, "Must wait 2 days to unstake mice");
-        } else if(_id == CAT){
-            require(_amount <= userInfo[msg.sender].catBalance);
-        } else if(_id == TRAP){
-            require(_amount <= userInfo[msg.sender].trapBalance);
-        }
-
-
-        uint _mouseTimestamp = userInfo[msg.sender].mouseTimestamp;
-        uint _mouseBalance = userInfo[msg.sender].mouseBalance;
-        uint _catBalance = userInfo[msg.sender].catBalance;
-        uint _trapBalance = userInfo[msg.sender].trapBalance;
-        uint _mouseIndex = userInfo[msg.sender].mouseIndex;
-        uint _catIndex = userInfo[msg.sender].catIndex;
-
-        if(_id == MOUSE) {
-            _mouseBalance = _mouseBalance - _amount;
-            _mouseIndex = index;
-            _mouseTimestamp = block.timestamp;
-        } else if(_id == CAT) {
-            _catBalance = _catBalance - _amount;
-            _catIndex = index;
-        } else if(_id == TRAP) {
-            _trapBalance = _trapBalance - _amount;
-            for (uint i = 0; i < _amount; i++) {
-                removeTrap(msg.sender);
+    function adjustBalances(bool add, uint256 _id, uint256 _amount) internal {
+        if(add){
+            if(_id == MOUSE) {
+                userInfo[msg.sender].balances[MOUSE] = userInfo[msg.sender].balances[MOUSE] + _amount;
+                userInfo[msg.sender].indexes[MOUSE] = rebasers[MOUSE].index();
+                userInfo[msg.sender].timestamps[MOUSE] = block.timestamp;
+            } else if(_id == CAT) {
+                userInfo[msg.sender].balances[CAT] = userInfo[msg.sender].balances[CAT] + _amount;
+                userInfo[msg.sender].indexes[CAT] = rebasers[CAT].index();
+            } else if(_id == TRAP) {
+                userInfo[msg.sender].balances[TRAP] = userInfo[msg.sender].balances[TRAP] + _amount;
+                for (uint256 i = 0; i < _amount; i++) {
+                    addTrap(msg.sender);
+                }
+            }
+        } else {
+            if(_id == MOUSE) {
+                userInfo[msg.sender].balances[MOUSE] = userInfo[msg.sender].balances[MOUSE] - _amount;
+                userInfo[msg.sender].indexes[MOUSE] = rebasers[MOUSE].index();
+                userInfo[msg.sender].timestamps[MOUSE] = block.timestamp;
+            } else if(_id == CAT) {
+                userInfo[msg.sender].balances[CAT] = userInfo[msg.sender].balances[CAT] - _amount;
+                userInfo[msg.sender].indexes[CAT] = rebasers[CAT].index();
+            } else if(_id == TRAP) {
+                userInfo[msg.sender].balances[TRAP] = userInfo[msg.sender].balances[TRAP] - _amount;
+                for (uint256 i = 0; i < _amount; i++) {
+                    removeTrap(msg.sender);
+                }
             }
         }
-        
-        userInfo[msg.sender] = UserInfo(_mouseBalance, _catBalance, _trapBalance, _mouseIndex, _catIndex, _mouseTimestamp);
+    }
+
+    function stake(uint256 _id, uint256 _amount) public {
+        require(_amount > 0, "Stake: can't stake 0 tokens");
+        rebase();
+        stakedToken.safeTransferFrom(msg.sender, address(this), _id, _amount, "");
+        adjustBalances(true, _id, _amount);
+    }
+
+    function unstake(uint256 _id, uint256 _amount) public {
+        require(_amount <= userInfo[msg.sender].balances[_id], "Unstake: amount too high" );
+        require((_id != MOUSE) || ((block.timestamp - userInfo[msg.sender].timestamps[MOUSE]) >= 172800), "Unstake: mice are locked");
+        require(_id < 3, "Unstake: id not supported");
+        rebase();
 
         if(_id == MOUSE){
-            uint miceStolen;
-            uint miceAttacked;
-            uint rpm = rewardsPerMouse();
+            uint256 miceStolen;
+            uint256 miceAttacked;
             
-            for(uint i = 0; i < _amount; i++){
-                uint rand = getRand();
+            for(uint256 i = 0; i < _amount; i++){
+                uint256 rand = getRand();
                 if (rand < 5) {
                     miceStolen++;
                 } else if(rand < 45){
                     miceAttacked++;
                 }
             }
-            uint totalRewards = rpm * _amount;
-            uint catRewards = (miceAttacked * rpm);
-            uint miceRewards = totalRewards - catRewards - (miceStolen * rpm);
-            uint amount = _amount - miceStolen;
-            uint id = _id;
+
+            uint256 mouseBalance = userInfo[msg.sender].balances[MOUSE];
+            uint256 totalRewards = getRewards(msg.sender, MOUSE);
+            adjustBalances(false, _id, _amount);
+            uint256 rpm = totalRewards / mouseBalance;
             
-            stakedToken.safeTransferFrom(address(this), msg.sender, id, amount, "");
-            for(uint i = 0; i < miceStolen; i++){
+            for(uint256 i = 0; i < miceStolen; i++){
                 if(stakedToken.balanceOf(address(this), TRAP) > 0){
-                uint winnerIdx = getTrapWinnerId();
-                address winner = traps[winnerIdx];
-                removeTrapByIdx(winnerIdx);
-                stakedToken.safeTransferFrom(address(this), winner, MOUSE, 1, "");
-                stakedToken.safeTransferFrom(address(this), winner, TRAP, 1, "");
-                //rewardsToken.transferFrom(address(this), winner, rpm);
+                    uint256 winnerIdx = getTrapWinnerId();
+                    address winner = traps[winnerIdx];
+                    removeTrapByIdx(winnerIdx);
+                    stakedToken.safeTransferFrom(address(this), winner, MOUSE, 1, "");
+                    stakedToken.safeTransferFrom(address(this), winner, TRAP, 1, "");
+                    //rewardsToken.transferFrom(address(this), winner, rpm);
                 } else {
                     miceStolen--;
+                    miceAttacked++;
                 }
             }
+            
+            uint256 catRewards = (miceAttacked * rpm);
+            nextCatPool += catRewards;
+            uint256 miceRewards = totalRewards - catRewards - (miceStolen * rpm);
+            uint256 amount = _amount - miceStolen;
+
+            stakedToken.safeTransferFrom(address(this), msg.sender, _id, amount, "");
+
             //rewardsToken.transferFrom(address(this), msg.sender, miceRewards);
         } else {
             stakedToken.safeTransferFrom(address(this), msg.sender, _id, _amount, "");
         }
     }
 
-    function rewardsPerMouse() public pure returns (uint) {
-        return 1;
+    function claimRewards(uint256 id) public {
+        require(id < 2);
+        uint256 rewards = getRewards(msg.sender, id);
+        if(id == MOUSE){
+            rewards = rewards * 3 / 4;
+            userInfo[msg.sender].timestamps[id] = block.timestamp;
+        }
+        userInfo[msg.sender].indexes[id] = rebasers[id].index();
     }
 
-    function getRand() public view returns (uint) {
-        return uint(keccak256(abi.encodePacked(block.difficulty, block.timestamp, gasleft()))) % 100;
+    function getRewards(address user, uint256 id) public view returns (uint256) {
+        require(id < 2);
+        uint256 lastIdx = userInfo[msg.sender].indexes[id];
+        if(lastIdx == 0){
+            return 0;
+        }
+        uint256 balance = userInfo[user].balances[id];
+        uint256 currentIdx = rebasers[id].index();
+        return balance * (currentIdx - lastIdx); 
+    }
+
+    function getRand() public view returns (uint256) {
+        return uint256(keccak256(abi.encodePacked(block.difficulty, block.timestamp, gasleft()))) % 100;
         //return (uint(vrf()) % 100);
     }
 
-    function getTrapWinnerId() public view returns (uint) {
-        return uint(keccak256(abi.encodePacked(block.difficulty, block.timestamp))) % traps.length;
+    function getTrapWinnerId() public view returns (uint256) {
+        return uint256(keccak256(abi.encodePacked(block.difficulty, block.timestamp))) % traps.length;
         //return (uint(vrf()) % traps.length);
     }
 
@@ -191,7 +236,7 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
        }
     }
 
-   function removeTrapByIdx(uint idx) public {
+   function removeTrapByIdx(uint256 idx) public {
         traps[idx] = traps[traps.length - 1];
         traps.pop();
     }

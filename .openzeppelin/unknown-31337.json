@@ -12,35 +12,170 @@
       "kind": "uups"
     },
     {
-      "address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
-      "txHash": "0x5f25199eef05651d718e729b7278685c1a984e0f2088c73c5e86bf96829b12d1",
-      "kind": "uups"
-    },
-    {
-      "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-      "txHash": "0xe8a8dc50792bb2a2ff2d5e181f52cd73d6e50858fe2717fc929ce14151d7d7b6",
-      "kind": "uups"
-    },
-    {
       "address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
-      "txHash": "0x277941b88ea06a8398c2ec0885df2a7e44785d89243841105cea726de7391dd4",
+      "txHash": "0x171d018fdafc3bea924c143f48e98698f7bd33c21004db5343e98c284d428e21",
       "kind": "uups"
     },
     {
       "address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
-      "txHash": "0xe14579f5fef9646578dc176127509c9f31c5e4bdfc2e464b588c2a2f8db1add5",
+      "txHash": "0x7d211957b3c19f5ba76ccbef9372df7ca3681f27b9b38377011049ed0294c4d9",
       "kind": "uups"
     },
     {
       "address": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
-      "txHash": "0xefc8aca98a9eb9055cd6aea277a236b76ab84878b5ee609d5a685560645e1b80",
+      "txHash": "0xbbe1cba2bb0a9c545c7684fc13bd84614c1d605c0901e80e9e2cbcab4e4eeb9b",
+      "kind": "uups"
+    },
+    {
+      "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "txHash": "0xd2c5b11a900404db5dde035ae620674ee351d23c184388bde6f4e6b8dc517a1d",
+      "kind": "uups"
+    },
+    {
+      "address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+      "txHash": "0x0dfde3867da6cc66bd41421029f40e0c6a8d9ef68e0994d56801e936ce4e7e71",
+      "kind": "uups"
+    },
+    {
+      "address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+      "txHash": "0xdef02aebb5118cc19897f65c189e3d37e0d7ce9f41753212bcbceb6b82b15b2e",
+      "kind": "uups"
+    },
+    {
+      "address": "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
+      "txHash": "0xb06100e69e501dabf083a6b930561a3147e12304bb9069e0235caa1683de407f",
+      "kind": "uups"
+    },
+    {
+      "address": "0x9A676e781A523b5d0C0e43731313A708CB607508",
+      "txHash": "0xb99e08399578e586da05c2d1277e1cb818a2e862a9e347124869a0c8a13264f5",
+      "kind": "uups"
+    },
+    {
+      "address": "0x59b670e9fA9D0A427751Af201D676719a970857b",
+      "txHash": "0x5edd393d77847ad369496c8e854e8a72fe0fac4804aea7de33815ddb5e2f27ce",
+      "kind": "uups"
+    },
+    {
+      "address": "0xE6E340D132b5f46d1e472DebcD681B2aBc16e57E",
+      "txHash": "0x0f1fe784cbcce54b5942f51cde0f55b4745636fcf164f591a9afbf2a42824cbc",
+      "kind": "uups"
+    },
+    {
+      "address": "0x4826533B4897376654Bb4d4AD88B7faFD0C98528",
+      "txHash": "0x14b25c80f8e816dda2e5482784003ee7669b95a397f32c05665cd5c888401c33",
+      "kind": "uups"
+    },
+    {
+      "address": "0x9d4454B023096f34B160D6B654540c56A1F81688",
+      "txHash": "0x74c4d3f02d93d8193841a51f49afd44763cd1e41555af1449042257797a5ca3c",
+      "kind": "uups"
+    },
+    {
+      "address": "0x2bdCC0de6bE1f7D2ee689a0342D76F52E8EFABa3",
+      "txHash": "0x659513dc49c9341cb72e5da66552d4787723c976cf7eadfd6adfcedad63ba7ff",
+      "kind": "uups"
+    },
+    {
+      "address": "0x1fA02b2d6A771842690194Cf62D91bdd92BfE28d",
+      "txHash": "0x28a16694aae0cb53756d37fe146770ce78aed52361a3a9bc3067dd358a63780f",
+      "kind": "uups"
+    },
+    {
+      "address": "0x0B306BF915C4d645ff596e518fAf3F9669b97016",
+      "txHash": "0xe847ec44cda99151841f9a2818e4af2922dc4109aeb44903282b9ff968c2dd26",
+      "kind": "uups"
+    },
+    {
+      "address": "0x322813Fd9A801c5507c9de605d63CEA4f2CE6c44",
+      "txHash": "0x18039cff7bd0690f1f2db11851e43e2fa59ef9721cde7391d2081e1c7a09cb1b",
+      "kind": "uups"
+    },
+    {
+      "address": "0x9E545E3C0baAB3E08CdfD552C960A1050f373042",
+      "txHash": "0x5bd49508c2dc1b958cb018c24114356f2999eb32112b77682d4ced002710ce6c",
+      "kind": "uups"
+    },
+    {
+      "address": "0x0E801D84Fa97b50751Dbf25036d067dCf18858bF",
+      "txHash": "0xe10a3ef8e2b38019762aed45d5f3f74c7f6eb11bcacd4c4bad093fcdf0643605",
+      "kind": "uups"
+    },
+    {
+      "address": "0xCD8a1C3ba11CF5ECfa6267617243239504a98d90",
+      "txHash": "0x7a73d8cf90452bd878699401b2999796d98b5cd5eeb3ae05056eced5b425e905",
+      "kind": "uups"
+    },
+    {
+      "address": "0x162A433068F51e18b7d13932F27e66a3f99E6890",
+      "txHash": "0x6f5fc664740ab7168023f61df210588295c2b8c570b4de13d25e7da4ccf731b7",
+      "kind": "uups"
+    },
+    {
+      "address": "0x2E2Ed0Cfd3AD2f1d34481277b3204d807Ca2F8c2",
+      "txHash": "0x8a79a4a6719767995acfc2e827039a57fac2bd57ebc9c2ba927f8e4511c6e0f9",
+      "kind": "uups"
+    },
+    {
+      "address": "0x4C4a2f8c81640e47606d3fd77B353E87Ba015584",
+      "txHash": "0xf5695b1aabdd8b18bf8918af0d46a690c4ab422768ab49835eb195251bb5fe50",
+      "kind": "uups"
+    },
+    {
+      "address": "0x4c5859f0F772848b2D91F1D83E2Fe57935348029",
+      "txHash": "0x92cb341e5daf6095408c422e29e1ff5370eefc7f86488b9a2ab9029c9480a354",
+      "kind": "uups"
+    },
+    {
+      "address": "0xcbEAF3BDe82155F56486Fb5a1072cb8baAf547cc",
+      "txHash": "0xf968997fb619ee98234fdd489f64a8a0a8ff4415a6f484989bdacb1b1be787d9",
+      "kind": "uups"
+    },
+    {
+      "address": "0xD8a5a9b31c3C0232E196d518E89Fd8bF83AcAd43",
+      "txHash": "0x49ac376bc401cb93b12168dd98dc81432e347aed36e624187761c5370333e92b",
+      "kind": "uups"
+    },
+    {
+      "address": "0xc351628EB244ec633d5f21fBD6621e1a683B1181",
+      "txHash": "0xce4b6c72282b1d2af3a29dee5c890761e5f0f9594356a1d6eb513cbe95833473",
+      "kind": "uups"
+    },
+    {
+      "address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+      "txHash": "0xd5b35b1084452940ce609ac051f5a5f5978fcad065a11428af550852f389ac0b",
+      "kind": "uups"
+    },
+    {
+      "address": "0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1",
+      "txHash": "0xef413f57ea3cd28fd6fe9e0e547f9048aceb1f4041fa470f3d55b0853d9fde31",
+      "kind": "uups"
+    },
+    {
+      "address": "0x4A679253410272dd5232B3Ff7cF5dbB88f295319",
+      "txHash": "0xf3497f66b237f290d86e0cfdeee4e38633d25f74693694a6a748501ab00d833f",
+      "kind": "uups"
+    },
+    {
+      "address": "0x851356ae760d987E095750cCeb3bC6014560891C",
+      "txHash": "0x2e8f6c55036422e70e6c1eab591a9b82532f15dd1e0d23bc5c770a046567d286",
+      "kind": "uups"
+    },
+    {
+      "address": "0x36C02dA8a0983159322a80FFE9F24b1acfF8B570",
+      "txHash": "0xca232fa12508f49d6c3c6db409f318af6dc5aed6a641347805b451b0e0c0bf0b",
+      "kind": "uups"
+    },
+    {
+      "address": "0xFD471836031dc5108809D173A067e8486B9047A3",
+      "txHash": "0x1b8eb4916d17e882be673d843ef0ceb4c2cfaaa780ca21bb73007c9578a63f02",
       "kind": "uups"
     }
   ],
   "impls": {
-    "5e0883ece26f053add3aea2a59d90ebe8e3bd85e962d72efb3178666789f0a73": {
-      "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
-      "txHash": "0xdd51998d018d679b2927c38fa3d943affff2b31a396fa6dbcaa46fc15a42bd10",
+    "3196206955d30100fad192e64f3c40668770d497aa79f7ecb5aed77f6fbcca5f": {
+      "address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+      "txHash": "0xfe1d29f840150653c00beb219aeda3f9e5a4506cf8a884c6d39a21f1b5a022ed",
       "layout": {
         "storage": [
           {
@@ -87,97 +222,118 @@
           },
           {
             "contract": "CheeseGame",
-            "label": "index",
-            "type": "t_uint256",
-            "src": "contracts/CheeseGame.sol:11"
-          },
-          {
-            "contract": "CheeseGame",
             "label": "rewardsToken",
             "type": "t_contract(IERC20)1267",
-            "src": "contracts/CheeseGame.sol:12"
+            "src": "contracts/CheeseGame.sol:16"
           },
           {
             "contract": "CheeseGame",
             "label": "stakedToken",
             "type": "t_contract(IERC1155)1189",
-            "src": "contracts/CheeseGame.sol:13"
+            "src": "contracts/CheeseGame.sol:17"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "rebasers",
+            "type": "t_array(t_contract(IRebaser)1303)dyn_storage",
+            "src": "contracts/CheeseGame.sol:19"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "rewardRate",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:21"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "nextCatPool",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:22"
           },
           {
             "contract": "CheeseGame",
             "label": "MOUSE",
             "type": "t_uint256",
-            "src": "contracts/CheeseGame.sol:15"
+            "src": "contracts/CheeseGame.sol:24"
           },
           {
             "contract": "CheeseGame",
             "label": "CAT",
             "type": "t_uint256",
-            "src": "contracts/CheeseGame.sol:16"
+            "src": "contracts/CheeseGame.sol:25"
           },
           {
             "contract": "CheeseGame",
             "label": "TRAP",
             "type": "t_uint256",
-            "src": "contracts/CheeseGame.sol:17"
+            "src": "contracts/CheeseGame.sol:26"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "lastRebaseTimestamp",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:28"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "epoch",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:29"
           },
           {
             "contract": "CheeseGame",
             "label": "userInfo",
-            "type": "t_mapping(t_address,t_struct(UserInfo)1327_storage)",
-            "src": "contracts/CheeseGame.sol:19"
+            "type": "t_mapping(t_address,t_struct(UserInfo)1354_storage)",
+            "src": "contracts/CheeseGame.sol:31"
           },
           {
             "contract": "CheeseGame",
             "label": "traps",
             "type": "t_array(t_address)dyn_storage",
-            "src": "contracts/CheeseGame.sol:20"
+            "src": "contracts/CheeseGame.sol:32"
           }
         ],
         "types": {
-          "t_uint256": {
-            "label": "uint256"
-          },
           "t_contract(IERC20)1267": {
             "label": "contract IERC20"
           },
           "t_contract(IERC1155)1189": {
             "label": "contract IERC1155"
           },
-          "t_mapping(t_address,t_struct(UserInfo)1327_storage)": {
+          "t_array(t_contract(IRebaser)1303)dyn_storage": {
+            "label": "contract IRebaser[]"
+          },
+          "t_contract(IRebaser)1303": {
+            "label": "contract IRebaser"
+          },
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_mapping(t_address,t_struct(UserInfo)1354_storage)": {
             "label": "mapping(address => struct CheeseGame.UserInfo)"
           },
           "t_address": {
             "label": "address"
           },
-          "t_struct(UserInfo)1327_storage": {
+          "t_struct(UserInfo)1354_storage": {
             "label": "struct CheeseGame.UserInfo",
             "members": [
               {
-                "label": "mouseBalance",
-                "type": "t_uint256"
+                "label": "balances",
+                "type": "t_mapping(t_uint256,t_uint256)"
               },
               {
-                "label": "catBalance",
-                "type": "t_uint256"
+                "label": "indexes",
+                "type": "t_mapping(t_uint256,t_uint256)"
               },
               {
-                "label": "trapBalance",
-                "type": "t_uint256"
-              },
-              {
-                "label": "mouseIndex",
-                "type": "t_uint256"
-              },
-              {
-                "label": "catIndex",
-                "type": "t_uint256"
-              },
-              {
-                "label": "mouseTimestamp",
-                "type": "t_uint256"
+                "label": "timestamps",
+                "type": "t_mapping(t_uint256,t_uint256)"
               }
             ]
+          },
+          "t_mapping(t_uint256,t_uint256)": {
+            "label": "mapping(uint256 => uint256)"
           },
           "t_array(t_address)dyn_storage": {
             "label": "address[]"
