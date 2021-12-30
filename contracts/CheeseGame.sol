@@ -242,6 +242,7 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
 
     function claimRewards(uint256 id) public nonReentrant nonContract {
         require(id < 2);
+        rebase();
         uint256 rewards = getRewards(msg.sender, id);
         if(rewards > 0) {
             if(id == MOUSE){
