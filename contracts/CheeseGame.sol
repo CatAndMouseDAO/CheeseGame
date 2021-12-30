@@ -134,8 +134,8 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
 
     function rebase() public {
         if(lastRebaseTimestamp + 28800 < block.timestamp){
-            distributor.distribute();
             lastRebaseTimestamp = lastRebaseTimestamp + 28800;
+            distributor.distribute();
             rebasers[MOUSE].rebase(rewardRate, epoch);
             rebasers[CAT].rebase(nextCatPool, epoch);
             nextCatPool = 0;
