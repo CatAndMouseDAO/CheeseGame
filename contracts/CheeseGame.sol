@@ -70,6 +70,11 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         uint cheezStolen
     );
 
+    uint256 private _NOT_ENTERED;
+    uint256 private _ENTERED;
+
+    uint256 private _status;
+
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() initializer {}
 
@@ -86,6 +91,10 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         CAT = 1;
         TRAP = 2;
 
+        _NOT_ENTERED = 1;
+        _ENTERED = 2;
+        _status = _NOT_ENTERED;
+
         rewardRate = 600000000000;
 
         stakedToken = IERC1155(_stakedToken);
@@ -95,6 +104,18 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         rebasers.push(IRebaser(_catRebaser));
 
         lastRebaseTimestamp = block.timestamp;
+    }
+
+    modifier nonReentrant() {
+        require(_status != _ENTERED, "ReentrancyGuard: reentrant call");
+        _status = _ENTERED;
+        _;
+        _status = _NOT_ENTERED;
+    }
+
+    modifier nonContract() {
+        require(tx.origin == msg.sender, "no no no");
+        _;
     }
 
     function setRewardRate(uint256 _rewardRate) public onlyOwner {
@@ -151,14 +172,17 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         }
     }
 
-    function stake(uint256 _id, uint256 _amount) public {
+    function stake(uint256 _id, uint256 _amount) public nonReentrant nonContract {
         require(_amount > 0, "Stake: can't stake 0 tokens");
         rebase();
+        if(userInfo[msg.sender].balances[_id] > 0){
+            claimRewards(_id);
+        }
         stakedToken.safeTransferFrom(msg.sender, address(this), _id, _amount, "");
         adjustBalances(true, _id, _amount);
     }
 
-    function unstake(uint256 _id, uint256 _amount) public {
+    function unstake(uint256 _id, uint256 _amount) public nonReentrant nonContract {
         require(_amount <= userInfo[msg.sender].balances[_id], "Unstake: amount too high" );
         require((_id != MOUSE) || ((block.timestamp - userInfo[msg.sender].timestamps[MOUSE]) >= 172800), "Unstake: mice are locked");
         require(_id < 3, "Unstake: id not supported");
@@ -172,7 +196,7 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
                 uint256 rand = getRand();
                 if (rand < 5) {
                     miceStolen++;
-                } else if(rand < 45){
+                } else if(rand < 50){
                     miceAttacked++;
                 }
             }
@@ -216,25 +240,28 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         }
     }
 
-    function claimRewards(uint256 id) public {
+    function claimRewards(uint256 id) public nonReentrant nonContract {
         require(id < 2);
         uint256 rewards = getRewards(msg.sender, id);
-        if(id == MOUSE){
-            rewards = rewards * 3 / 4;
-            userInfo[msg.sender].timestamps[id] = block.timestamp;
+        if(rewards > 0) {
+            if(id == MOUSE){
+                rewards = rewards * 3 / 4;
+                userInfo[msg.sender].timestamps[id] = block.timestamp;
+            }
+            userInfo[msg.sender].indexes[id] = rebasers[id].index();
+            rewardsToken.transferFrom(address(this), msg.sender, rewards);
+            emit ClaimRewards(id, msg.sender, rewards);
         }
-        userInfo[msg.sender].indexes[id] = rebasers[id].index();
-        emit ClaimRewards(id, msg.sender, rewards);
     }
 
     function getRewards(address user, uint256 id) public view returns (uint256) {
         require(id < 2);
         uint256 lastIdx = userInfo[msg.sender].indexes[id];
-        if(lastIdx == 0){
+        uint256 currentIdx = rebasers[id].index();
+        uint256 balance = userInfo[user].balances[id];
+        if(lastIdx == 0 || lastIdx == currentIdx || balance == 0){
             return 0;
         }
-        uint256 balance = userInfo[user].balances[id];
-        uint256 currentIdx = rebasers[id].index();
         return balance * (currentIdx - lastIdx); 
     }
 
