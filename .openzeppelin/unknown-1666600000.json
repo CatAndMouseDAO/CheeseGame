@@ -1,0 +1,216 @@
+{
+  "manifestVersion": "3.2",
+  "proxies": [
+    {
+      "address": "0xD5a435f0e0503B0Fa692DE2D9eac3228adc203b3",
+      "txHash": "0x2fd8bc003dc424d75ab16c787313c38115e2699a6133f08a0387a080455b68da",
+      "kind": "uups"
+    }
+  ],
+  "impls": {
+    "14373967778aabed861ac0195f1333eda941379e2b11befa15f5123f2d69d061": {
+      "address": "0x4261838058C30368A85704cFcb59cA7629AcB99c",
+      "txHash": "0x7a7784e63af62f9f5dcb8a8127551d12fa76affda91b4f359aef445f18dbd6b0",
+      "layout": {
+        "storage": [
+          {
+            "contract": "Initializable",
+            "label": "_initialized",
+            "type": "t_bool",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:39"
+          },
+          {
+            "contract": "Initializable",
+            "label": "_initializing",
+            "type": "t_bool",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:44"
+          },
+          {
+            "contract": "ContextUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:31"
+          },
+          {
+            "contract": "OwnableUpgradeable",
+            "label": "_owner",
+            "type": "t_address",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:22"
+          },
+          {
+            "contract": "OwnableUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)49_storage",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:82"
+          },
+          {
+            "contract": "ERC1967UpgradeUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/ERC1967/ERC1967UpgradeUpgradeable.sol:215"
+          },
+          {
+            "contract": "UUPSUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol:81"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "rewardsToken",
+            "type": "t_contract(IERC20)1267",
+            "src": "contracts/CheeseGame.sol:20"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "stakedToken",
+            "type": "t_contract(IERC1155)1189",
+            "src": "contracts/CheeseGame.sol:21"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "rebasers",
+            "type": "t_array(t_contract(IRebaser)1303)dyn_storage",
+            "src": "contracts/CheeseGame.sol:23"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "distributor",
+            "type": "t_contract(IDistributor)1307",
+            "src": "contracts/CheeseGame.sol:24"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "rewardRate",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:26"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "nextCatPool",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:27"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "MOUSE",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:29"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "CAT",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:30"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "TRAP",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:31"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "lastRebaseTimestamp",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:33"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "epoch",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:34"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "userInfo",
+            "type": "t_mapping(t_address,t_struct(UserInfo)1361_storage)",
+            "src": "contracts/CheeseGame.sol:36"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "traps",
+            "type": "t_array(t_address)dyn_storage",
+            "src": "contracts/CheeseGame.sol:37"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "_NOT_ENTERED",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:78"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "_ENTERED",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:79"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "_status",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:81"
+          }
+        ],
+        "types": {
+          "t_contract(IERC20)1267": {
+            "label": "contract IERC20"
+          },
+          "t_contract(IERC1155)1189": {
+            "label": "contract IERC1155"
+          },
+          "t_array(t_contract(IRebaser)1303)dyn_storage": {
+            "label": "contract IRebaser[]"
+          },
+          "t_contract(IRebaser)1303": {
+            "label": "contract IRebaser"
+          },
+          "t_contract(IDistributor)1307": {
+            "label": "contract IDistributor"
+          },
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_mapping(t_address,t_struct(UserInfo)1361_storage)": {
+            "label": "mapping(address => struct CheeseGame.UserInfo)"
+          },
+          "t_address": {
+            "label": "address"
+          },
+          "t_struct(UserInfo)1361_storage": {
+            "label": "struct CheeseGame.UserInfo",
+            "members": [
+              {
+                "label": "balances",
+                "type": "t_mapping(t_uint256,t_uint256)"
+              },
+              {
+                "label": "indexes",
+                "type": "t_mapping(t_uint256,t_uint256)"
+              },
+              {
+                "label": "timestamps",
+                "type": "t_mapping(t_uint256,t_uint256)"
+              }
+            ]
+          },
+          "t_mapping(t_uint256,t_uint256)": {
+            "label": "mapping(uint256 => uint256)"
+          },
+          "t_array(t_address)dyn_storage": {
+            "label": "address[]"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]"
+          },
+          "t_bool": {
+            "label": "bool"
+          }
+        }
+      }
+    }
+  }
+}

@@ -6,6 +6,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
+import "hardhat/console.sol";
 
 contract IRebaser {
     function rebase( uint256 profit_, uint epoch_) public returns ( uint256 ){}
@@ -196,6 +197,7 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
     }
 
     function unstake(uint256 _id, uint256 _amount) public nonContract nonReentrant {
+        require(_amount > 0, "Unstake: can't unstake 0 tokens");
         require(_amount <= userInfo[msg.sender].balances[_id], "Unstake: amount too high" );
         require((_id != MOUSE) || ((block.timestamp - userInfo[msg.sender].timestamps[MOUSE]) >= 172800), "Unstake: mice are locked");
         require(_id < 3, "Unstake: id not supported");
@@ -206,7 +208,7 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
             uint256 miceAttacked;
             
             for(uint256 i = 0; i < _amount; i++){
-                uint256 rand = getRand();
+                uint256 rand = getRand() % 100;
                 if (rand < 5) {
                     miceStolen++;
                 } else if(rand < 50){
@@ -221,7 +223,7 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
             
             for(uint256 i = 0; i < miceStolen; i++){
                 if(stakedToken.balanceOf(address(this), TRAP) > 0){
-                    uint256 winnerIdx = getTrapWinnerId();
+                    uint256 winnerIdx = getRand() % traps.length;
                     address winner = traps[winnerIdx];
                     removeTrapByIdx(winnerIdx);
                     stakedToken.safeTransferFrom(address(this), winner, MOUSE, 1, "");
@@ -241,7 +243,9 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
 
             stakedToken.safeTransferFrom(address(this), msg.sender, _id, amount, "");
             rewardsToken.transferFrom(address(this), msg.sender, miceRewards);
-            emit CatAttack(msg.sender, miceStolen);
+            if(miceAttacked > 0){
+                emit CatAttack(msg.sender, miceAttacked);
+            }
         } else if(_id == CAT) {
             uint256 totalRewards = getRewards(msg.sender, _id);
             adjustBalances(false, _id, _amount);
@@ -283,13 +287,7 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
     }
 
     function getRand() public view returns (uint256) {
-        return uint256(keccak256(abi.encodePacked(block.difficulty, block.timestamp, gasleft()))) % 100;
-        //return (uint(vrf()) % 100);
-    }
-
-    function getTrapWinnerId() public view returns (uint256) {
-        return uint256(keccak256(abi.encodePacked(block.difficulty, block.timestamp))) % traps.length;
-        //return (uint(vrf()) % traps.length);
+        return uint256(keccak256(abi.encodePacked(uint(vrf()), gasleft())));
     }
 
     function vrf() public view returns (bytes32 result) {

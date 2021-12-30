@@ -43,16 +43,8 @@ async function main() {
 
   await cg.setDistributor(dist.address);
 
-  Rebaser = await ethers.getContractFactory("contracts/Rebase.sol:Rebaser");
-  miceRebaser = await Rebaser.deploy();
-  catRebaser = await Rebaser.deploy()
-  await miceRebaser.setIndex(initialIndex);
-  await catRebaser.setIndex(initialIndex);
-
-  CG = await ethers.getContractFactory("CheeseGame");
-  cg = await upgrades.deployProxy(CG, [nft.address, cheez.address, miceRebaser.address, catRebaser.address], { kind: 'uups' });
-
   console.log("cg deployed to: ", cg.address)
+  console.log("dist deployed to: ", dist.address)
 
 }
 

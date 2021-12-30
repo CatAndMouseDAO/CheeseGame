@@ -56,6 +56,23 @@ describe('CheeseGame', function () {
     expect(parseInt(balanceBefore)).to.be.equal(parseInt(balanceAfter)+50);
   });  
 
+  it('Stake cats', async function () { 
+    let balanceBefore = await nft.balanceOf(owner.address, 1)
+    await nft.setApprovalForAll(cg.address, true);
+    await cg.stake(1, 50);
+    let balanceAfter = await nft.balanceOf(owner.address, 1)
+    expect(parseInt(balanceBefore)).to.be.equal(parseInt(balanceAfter)+50);
+  });  
+
+  it('Stake traps', async function () { 
+    let balanceBefore = await nft.balanceOf(owner.address, 2)
+    await nft.setApprovalForAll(cg.address, true);
+    await cg.stake(2, 50);
+    let balanceAfter = await nft.balanceOf(owner.address, 2)
+    expect(parseInt(balanceBefore)).to.be.equal(parseInt(balanceAfter)+50);
+  });  
+
+
   it('Should set circ supply to mice staked * index', async function () { 
     await nft.setApprovalForAll(cg.address, true);
     await cg.stake(0, 50);
@@ -128,6 +145,8 @@ describe('CheeseGame', function () {
     
     let rewards = await cg.getRewards(owner.address, 1)
     console.log(rewards)
+    await cg.claimRewards(1)
+    console.log(await cheez.balanceOf(owner.address))
 
     await network.provider.send("evm_increaseTime", [100 + 172801])
     let balanceBefore = await nft.balanceOf(owner.address, 0)
