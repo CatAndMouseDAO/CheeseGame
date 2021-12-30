@@ -143,39 +143,39 @@
     },
     {
       "address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
-      "txHash": "0x3a53fd7da8f1f19e7929135846a2b1b06b5b92d817952d337d3b991213671a23",
+      "txHash": "0x7ba73df494fbaf39ca8010b5adb560609da84f7c0071364d969937277e9970e3",
       "kind": "uups"
     },
     {
       "address": "0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1",
-      "txHash": "0xa72aef0d5846f67760b95164ed5c7a43860456ee78dbdc25efc0dd4881e0b172",
+      "txHash": "0x28807f39165cc1d28cfeb2b9aa08fa1bca9ed12763e04f228970b19fa06bafe9",
       "kind": "uups"
     },
     {
       "address": "0x4A679253410272dd5232B3Ff7cF5dbB88f295319",
-      "txHash": "0xfb619c41f604cab09c0d08eb316ef96fd871f0574aea7a25e6209bbb1546c1d5",
+      "txHash": "0x9142b184db8f38bc1f7b283e35dc6e7e4b8958c5cbc90b40fe1e0899c8716c47",
       "kind": "uups"
     },
     {
       "address": "0x851356ae760d987E095750cCeb3bC6014560891C",
-      "txHash": "0x158e62e2da006b105a8fcca4b499571611162cfd36ff160ad41e46fd81705176",
+      "txHash": "0xdf19563db6042f6a22ba02e71b18c2532522b93a9bd693c3bdc2530ad7ac3f19",
       "kind": "uups"
     },
     {
       "address": "0x36C02dA8a0983159322a80FFE9F24b1acfF8B570",
-      "txHash": "0x26f4301d8f6f627fb8a68039c1c2a1484e575b001694accf916a876232c5268b",
+      "txHash": "0x64fae0a90cfdb649fe37395467fac290e008154d68cc58367bd2e17a27fc49b0",
       "kind": "uups"
     },
     {
       "address": "0xFD471836031dc5108809D173A067e8486B9047A3",
-      "txHash": "0x8aac11e336b3f76fd8ef25fd395abfd6b0f71585c62dc93dcfd70bb0e7e4a82f",
+      "txHash": "0x74863bbee4cbcddffed2817f5913d3f6aa58d4fbc9badc2c90d38e7b2684be13",
       "kind": "uups"
     }
   ],
   "impls": {
-    "5fcc1199549d57e8da2384661d4cb738e4324f88671c3803489d9cd9c8244448": {
+    "9a163ba53cc9d62302e2a9d1b8b4238716c63950af82b31dab901d655af6affc": {
       "address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
-      "txHash": "0xb6f6b0e15de5abf19dc2653239b7f41146af45459fdad1527baa67911a8beb5f",
+      "txHash": "0x34b781c32962236224f016e95af24169d988e2bfc84f31dd0680d42246dd0d7a",
       "layout": {
         "storage": [
           {
@@ -224,73 +224,91 @@
             "contract": "CheeseGame",
             "label": "rewardsToken",
             "type": "t_contract(IERC20)1267",
-            "src": "contracts/CheeseGame.sol:16"
+            "src": "contracts/CheeseGame.sol:17"
           },
           {
             "contract": "CheeseGame",
             "label": "stakedToken",
             "type": "t_contract(IERC1155)1189",
-            "src": "contracts/CheeseGame.sol:17"
+            "src": "contracts/CheeseGame.sol:18"
           },
           {
             "contract": "CheeseGame",
             "label": "rebasers",
-            "type": "t_array(t_contract(IRebaser)1303)dyn_storage",
-            "src": "contracts/CheeseGame.sol:19"
+            "type": "t_array(t_contract(IRebaser)1304)dyn_storage",
+            "src": "contracts/CheeseGame.sol:20"
           },
           {
             "contract": "CheeseGame",
             "label": "rewardRate",
             "type": "t_uint256",
-            "src": "contracts/CheeseGame.sol:21"
+            "src": "contracts/CheeseGame.sol:22"
           },
           {
             "contract": "CheeseGame",
             "label": "nextCatPool",
             "type": "t_uint256",
-            "src": "contracts/CheeseGame.sol:22"
+            "src": "contracts/CheeseGame.sol:23"
           },
           {
             "contract": "CheeseGame",
             "label": "MOUSE",
             "type": "t_uint256",
-            "src": "contracts/CheeseGame.sol:24"
+            "src": "contracts/CheeseGame.sol:25"
           },
           {
             "contract": "CheeseGame",
             "label": "CAT",
             "type": "t_uint256",
-            "src": "contracts/CheeseGame.sol:25"
+            "src": "contracts/CheeseGame.sol:26"
           },
           {
             "contract": "CheeseGame",
             "label": "TRAP",
             "type": "t_uint256",
-            "src": "contracts/CheeseGame.sol:26"
+            "src": "contracts/CheeseGame.sol:27"
           },
           {
             "contract": "CheeseGame",
             "label": "lastRebaseTimestamp",
             "type": "t_uint256",
-            "src": "contracts/CheeseGame.sol:28"
+            "src": "contracts/CheeseGame.sol:29"
           },
           {
             "contract": "CheeseGame",
             "label": "epoch",
             "type": "t_uint256",
-            "src": "contracts/CheeseGame.sol:29"
+            "src": "contracts/CheeseGame.sol:30"
           },
           {
             "contract": "CheeseGame",
             "label": "userInfo",
-            "type": "t_mapping(t_address,t_struct(UserInfo)1354_storage)",
-            "src": "contracts/CheeseGame.sol:31"
+            "type": "t_mapping(t_address,t_struct(UserInfo)1355_storage)",
+            "src": "contracts/CheeseGame.sol:32"
           },
           {
             "contract": "CheeseGame",
             "label": "traps",
             "type": "t_array(t_address)dyn_storage",
-            "src": "contracts/CheeseGame.sol:32"
+            "src": "contracts/CheeseGame.sol:33"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "_NOT_ENTERED",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:41"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "_ENTERED",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:42"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "_status",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:44"
           }
         ],
         "types": {
@@ -300,22 +318,22 @@
           "t_contract(IERC1155)1189": {
             "label": "contract IERC1155"
           },
-          "t_array(t_contract(IRebaser)1303)dyn_storage": {
+          "t_array(t_contract(IRebaser)1304)dyn_storage": {
             "label": "contract IRebaser[]"
           },
-          "t_contract(IRebaser)1303": {
+          "t_contract(IRebaser)1304": {
             "label": "contract IRebaser"
           },
           "t_uint256": {
             "label": "uint256"
           },
-          "t_mapping(t_address,t_struct(UserInfo)1354_storage)": {
+          "t_mapping(t_address,t_struct(UserInfo)1355_storage)": {
             "label": "mapping(address => struct CheeseGame.UserInfo)"
           },
           "t_address": {
             "label": "address"
           },
-          "t_struct(UserInfo)1354_storage": {
+          "t_struct(UserInfo)1355_storage": {
             "label": "struct CheeseGame.UserInfo",
             "members": [
               {

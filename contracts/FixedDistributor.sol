@@ -34,6 +34,10 @@ contract Distributor is Ownable {
         recipient = _recipient;
     }
 
+    function setRebaseTimestamp(uint256 time) public onlyOwner {
+        lastRebaseTimestamp = time;
+    }
+
     function distribute() public {
         if(lastRebaseTimestamp + 28800 < block.timestamp){
             lastRebaseTimestamp = lastRebaseTimestamp + 28800;

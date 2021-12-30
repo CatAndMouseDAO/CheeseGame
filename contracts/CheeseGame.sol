@@ -6,6 +6,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
+import './ReentrancyGuard.sol';
 
 contract IRebaser {
     function rebase( uint256 profit_, uint256 epoch_) public returns ( uint256 ) {}
@@ -37,6 +38,11 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         mapping (uint256 => uint256) timestamps;
     }
 
+    uint256 private _NOT_ENTERED;
+    uint256 private _ENTERED;
+
+    uint256 private _status;
+
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() initializer {}
 
@@ -53,6 +59,10 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         CAT = 1;
         TRAP = 2;
 
+        _NOT_ENTERED = 1;
+        _ENTERED = 2;
+        _status = _NOT_ENTERED;
+
         rewardRate = 600000000000;
 
         stakedToken = IERC1155(_stakedToken);
@@ -62,6 +72,20 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         rebasers.push(IRebaser(_catRebaser));
 
         lastRebaseTimestamp = block.timestamp;
+    }
+
+    modifier nonReentrant() {
+        // On the first call to nonReentrant, _notEntered will be true
+        require(_status != _ENTERED, "ReentrancyGuard: reentrant call");
+
+        // Any calls to nonReentrant after this point will fail
+        _status = _ENTERED;
+
+        _;
+
+        // By storing the original value once again, a refund is triggered (see
+        // https://eips.ethereum.org/EIPS/eip-2200)
+        _status = _NOT_ENTERED;
     }
 
     function setRewardRate(uint256 _rewardRate) public onlyOwner {
@@ -116,14 +140,14 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         }
     }
 
-    function stake(uint256 _id, uint256 _amount) public {
+    function stake(uint256 _id, uint256 _amount) public nonReentrant {
         require(_amount > 0, "Stake: can't stake 0 tokens");
         rebase();
         stakedToken.safeTransferFrom(msg.sender, address(this), _id, _amount, "");
         adjustBalances(true, _id, _amount);
     }
 
-    function unstake(uint256 _id, uint256 _amount) public {
+    function unstake(uint256 _id, uint256 _amount) public nonReentrant {
         require(_amount <= userInfo[msg.sender].balances[_id], "Unstake: amount too high" );
         require((_id != MOUSE) || ((block.timestamp - userInfo[msg.sender].timestamps[MOUSE]) >= 172800), "Unstake: mice are locked");
         require(_id < 3, "Unstake: id not supported");
@@ -179,7 +203,7 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         }
     }
 
-    function claimRewards(uint256 id) public {
+    function claimRewards(uint256 id) public nonReentrant {
         require(id < 2);
         uint256 rewards = getRewards(msg.sender, id);
         if(id == MOUSE){
