@@ -116,6 +116,14 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         _;
     }
 
+    modifier nonReentrant() {
+        require(_status != _ENTERED, "ReentrancyGuard: reentrant call");
+        _status = _ENTERED;
+        _;
+        _status = _NOT_ENTERED;
+    }
+
+
     function setRewardRate(uint256 _rewardRate) public onlyOwner {
         rewardRate = _rewardRate;
     }
@@ -177,7 +185,7 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         }
     }
 
-    function stake(uint256 _id, uint256 _amount) public nonContract {
+    function stake(uint256 _id, uint256 _amount) public nonContract nonReentrant {
         require(_amount > 0, "Stake: can't stake 0 tokens");
         rebase();
         if(userInfo[msg.sender].balances[_id] > 0){
@@ -187,7 +195,7 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         adjustBalances(true, _id, _amount);
     }
 
-    function unstake(uint256 _id, uint256 _amount) public nonContract {
+    function unstake(uint256 _id, uint256 _amount) public nonContract nonReentrant {
         require(_amount <= userInfo[msg.sender].balances[_id], "Unstake: amount too high" );
         require((_id != MOUSE) || ((block.timestamp - userInfo[msg.sender].timestamps[MOUSE]) >= 172800), "Unstake: mice are locked");
         require(_id < 3, "Unstake: id not supported");
