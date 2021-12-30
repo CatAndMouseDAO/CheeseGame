@@ -8,8 +8,12 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 
 contract IRebaser {
-    function rebase( uint256 profit_, uint256 epoch_) public returns ( uint256 ) {}
-    function index() public view returns ( uint256 ) {}
+    function rebase( uint256 profit_, uint epoch_) public returns ( uint256 ){}
+    function index() public view returns ( uint ){}
+}
+
+interface IDistributor {
+    function distribute() external;
 }
 
 contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
@@ -17,6 +21,7 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
     IERC1155 public stakedToken;
 
     IRebaser[] public rebasers;
+    IDistributor public distributor;
 
     uint256 public rewardRate;
     uint256 public nextCatPool;
@@ -106,13 +111,6 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         lastRebaseTimestamp = block.timestamp;
     }
 
-    modifier nonReentrant() {
-        require(_status != _ENTERED, "ReentrancyGuard: reentrant call");
-        _status = _ENTERED;
-        _;
-        _status = _NOT_ENTERED;
-    }
-
     modifier nonContract() {
         require(tx.origin == msg.sender, "no no no");
         _;
@@ -122,14 +120,21 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         rewardRate = _rewardRate;
     }
 
-    function _authorizeUpgrade(address newImplementation)
-        internal
-        onlyOwner
-        override
-    {}
+    function setDistributor(address _distributor) public onlyOwner {
+        distributor = IDistributor(_distributor);
+    }
+
+    function setRebaseTimestamp(uint256 time) public onlyOwner {
+        lastRebaseTimestamp = time;
+    }
+
+    function nextRewardAt() public view returns (uint256) {
+        return lastRebaseTimestamp + 28800;
+    }
 
     function rebase() public {
         if(lastRebaseTimestamp + 28800 < block.timestamp){
+            distributor.distribute();
             lastRebaseTimestamp = lastRebaseTimestamp + 28800;
             rebasers[MOUSE].rebase(rewardRate, epoch);
             rebasers[CAT].rebase(nextCatPool, epoch);
@@ -172,7 +177,7 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         }
     }
 
-    function stake(uint256 _id, uint256 _amount) public nonReentrant nonContract {
+    function stake(uint256 _id, uint256 _amount) public nonContract {
         require(_amount > 0, "Stake: can't stake 0 tokens");
         rebase();
         if(userInfo[msg.sender].balances[_id] > 0){
@@ -182,7 +187,7 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         adjustBalances(true, _id, _amount);
     }
 
-    function unstake(uint256 _id, uint256 _amount) public nonReentrant nonContract {
+    function unstake(uint256 _id, uint256 _amount) public nonContract {
         require(_amount <= userInfo[msg.sender].balances[_id], "Unstake: amount too high" );
         require((_id != MOUSE) || ((block.timestamp - userInfo[msg.sender].timestamps[MOUSE]) >= 172800), "Unstake: mice are locked");
         require(_id < 3, "Unstake: id not supported");
@@ -240,7 +245,7 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         }
     }
 
-    function claimRewards(uint256 id) public nonReentrant nonContract {
+    function claimRewards(uint256 id) public nonContract {
         require(id < 2);
         rebase();
         uint256 rewards = getRewards(msg.sender, id);
@@ -314,6 +319,12 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         traps[idx] = traps[traps.length - 1];
         traps.pop();
     }
+
+    function _authorizeUpgrade(address newImplementation)
+        internal
+        onlyOwner
+        override
+    {}
 
     function onERC1155Received(address operator, address, uint256, uint256, bytes memory) external virtual returns (bytes4) {
         require(operator == address(this), "Operator not staking contract");

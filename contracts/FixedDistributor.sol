@@ -38,7 +38,7 @@ contract Distributor is Ownable {
         lastRebaseTimestamp = time;
     }
 
-    function distribute() public {
+    function distribute() external {
         if(lastRebaseTimestamp + 28800 < block.timestamp){
             lastRebaseTimestamp = lastRebaseTimestamp + 28800;
             treasury.mintRewards( recipient, rewardsRate );

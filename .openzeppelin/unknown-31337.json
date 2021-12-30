@@ -37,11 +37,6 @@
       "kind": "uups"
     },
     {
-      "address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
-      "txHash": "0xdef02aebb5118cc19897f65c189e3d37e0d7ce9f41753212bcbceb6b82b15b2e",
-      "kind": "uups"
-    },
-    {
       "address": "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
       "txHash": "0xb06100e69e501dabf083a6b930561a3147e12304bb9069e0235caa1683de407f",
       "kind": "uups"
@@ -127,11 +122,6 @@
       "kind": "uups"
     },
     {
-      "address": "0xcbEAF3BDe82155F56486Fb5a1072cb8baAf547cc",
-      "txHash": "0xf968997fb619ee98234fdd489f64a8a0a8ff4415a6f484989bdacb1b1be787d9",
-      "kind": "uups"
-    },
-    {
       "address": "0xD8a5a9b31c3C0232E196d518E89Fd8bF83AcAd43",
       "txHash": "0x49ac376bc401cb93b12168dd98dc81432e347aed36e624187761c5370333e92b",
       "kind": "uups"
@@ -199,6 +189,61 @@
     {
       "address": "0xf4B146FbA71F41E0592668ffbF264F1D186b2Ca8",
       "txHash": "0x648148b8590524c67dd79c0f93e96aec051951e2344e6fa5a92902db775d85e8",
+      "kind": "uups"
+    },
+    {
+      "address": "0x7A9Ec1d04904907De0ED7b6839CcdD59c3716AC9",
+      "txHash": "0x608657e49d7f7cf7aaf4e8cb67ac61ccf7570f3f6aa25725c19b720846ec34aa",
+      "kind": "uups"
+    },
+    {
+      "address": "0xD0141E899a65C95a556fE2B27e5982A6DE7fDD7A",
+      "txHash": "0x24df57e9479cbd3588b9fea04b475871c42031ed5fb2854f6563f70680f3a062",
+      "kind": "uups"
+    },
+    {
+      "address": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+      "txHash": "0xb40dcf69366cff5216ea82765aef8b4fe542b398445676d09106296447a19841",
+      "kind": "uups"
+    },
+    {
+      "address": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
+      "txHash": "0xc3d3dd6c58545671108c1650a13df314fe4e42aa26520add6d29a81bdccb8ad2",
+      "kind": "uups"
+    },
+    {
+      "address": "0x84eA74d481Ee0A5332c457a4d796187F6Ba67fEB",
+      "txHash": "0x57c17a4eaab8f9045e68d18a3c7d75cfc959e4c693370d3331c7aa5e32b249bc",
+      "kind": "uups"
+    },
+    {
+      "address": "0x5eb3Bc0a489C5A8288765d2336659EbCA68FCd00",
+      "txHash": "0xbb1af2495a42301170173a14d672f18f7c3d0e964055e284884d2bf4b58a14e0",
+      "kind": "uups"
+    },
+    {
+      "address": "0xcbEAF3BDe82155F56486Fb5a1072cb8baAf547cc",
+      "txHash": "0x9578c2ed6efd9c31ae6197fba333eacabf7878cdffe66a980c291372d431bc83",
+      "kind": "uups"
+    },
+    {
+      "address": "0x36b58F5C1969B7b6591D752ea6F5486D069010AB",
+      "txHash": "0x90c4c9c8d01988f7f9d4fb6edba46c913c09682b6e3bf536e12408f28581f6da",
+      "kind": "uups"
+    },
+    {
+      "address": "0x49fd2BE640DB2910c2fAb69bB8531Ab6E76127ff",
+      "txHash": "0x84dd892c6823d46c2c9fe822ac7b6b163bfb5c44bb9a77fc5dbb45bb3355a54c",
+      "kind": "uups"
+    },
+    {
+      "address": "0x07882Ae1ecB7429a84f1D53048d35c4bB2056877",
+      "txHash": "0xac2c661beef1fbb08454d511053b766583214f96409332549532b65f63f26c0d",
+      "kind": "uups"
+    },
+    {
+      "address": "0x5fc748f1FEb28d7b76fa1c6B07D8ba2d5535177c",
+      "txHash": "0xa42e70239c3a19010a406ede066f02d9a28c459e0b61fe0bad615d2330ec638f",
       "kind": "uups"
     }
   ],
@@ -364,6 +409,210 @@
             "label": "address"
           },
           "t_struct(UserInfo)1354_storage": {
+            "label": "struct CheeseGame.UserInfo",
+            "members": [
+              {
+                "label": "balances",
+                "type": "t_mapping(t_uint256,t_uint256)"
+              },
+              {
+                "label": "indexes",
+                "type": "t_mapping(t_uint256,t_uint256)"
+              },
+              {
+                "label": "timestamps",
+                "type": "t_mapping(t_uint256,t_uint256)"
+              }
+            ]
+          },
+          "t_mapping(t_uint256,t_uint256)": {
+            "label": "mapping(uint256 => uint256)"
+          },
+          "t_array(t_address)dyn_storage": {
+            "label": "address[]"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]"
+          },
+          "t_bool": {
+            "label": "bool"
+          }
+        }
+      }
+    },
+    "26995e8bff7869ec3c2a81f6615c80dfd415fdac690da90201a19734af889682": {
+      "address": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+      "txHash": "0x72e04c57faa62b0e55971be969e69cbc36ee5c8d010848c9b99389945e0ecb6d",
+      "layout": {
+        "storage": [
+          {
+            "contract": "Initializable",
+            "label": "_initialized",
+            "type": "t_bool",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:39"
+          },
+          {
+            "contract": "Initializable",
+            "label": "_initializing",
+            "type": "t_bool",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:44"
+          },
+          {
+            "contract": "ContextUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:31"
+          },
+          {
+            "contract": "OwnableUpgradeable",
+            "label": "_owner",
+            "type": "t_address",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:22"
+          },
+          {
+            "contract": "OwnableUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)49_storage",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:82"
+          },
+          {
+            "contract": "ERC1967UpgradeUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/ERC1967/ERC1967UpgradeUpgradeable.sol:215"
+          },
+          {
+            "contract": "UUPSUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol:81"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "rewardsToken",
+            "type": "t_contract(IERC20)1267",
+            "src": "contracts/CheeseGame.sol:20"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "stakedToken",
+            "type": "t_contract(IERC1155)1189",
+            "src": "contracts/CheeseGame.sol:21"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "rebasers",
+            "type": "t_array(t_contract(IRebaser)1303)dyn_storage",
+            "src": "contracts/CheeseGame.sol:23"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "distributor",
+            "type": "t_contract(IDistributor)1307",
+            "src": "contracts/CheeseGame.sol:24"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "rewardRate",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:26"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "nextCatPool",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:27"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "MOUSE",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:29"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "CAT",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:30"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "TRAP",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:31"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "lastRebaseTimestamp",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:33"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "epoch",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:34"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "userInfo",
+            "type": "t_mapping(t_address,t_struct(UserInfo)1361_storage)",
+            "src": "contracts/CheeseGame.sol:36"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "traps",
+            "type": "t_array(t_address)dyn_storage",
+            "src": "contracts/CheeseGame.sol:37"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "_NOT_ENTERED",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:78"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "_ENTERED",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:79"
+          },
+          {
+            "contract": "CheeseGame",
+            "label": "_status",
+            "type": "t_uint256",
+            "src": "contracts/CheeseGame.sol:81"
+          }
+        ],
+        "types": {
+          "t_contract(IERC20)1267": {
+            "label": "contract IERC20"
+          },
+          "t_contract(IERC1155)1189": {
+            "label": "contract IERC1155"
+          },
+          "t_array(t_contract(IRebaser)1303)dyn_storage": {
+            "label": "contract IRebaser[]"
+          },
+          "t_contract(IRebaser)1303": {
+            "label": "contract IRebaser"
+          },
+          "t_contract(IDistributor)1307": {
+            "label": "contract IDistributor"
+          },
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_mapping(t_address,t_struct(UserInfo)1361_storage)": {
+            "label": "mapping(address => struct CheeseGame.UserInfo)"
+          },
+          "t_address": {
+            "label": "address"
+          },
+          "t_struct(UserInfo)1361_storage": {
             "label": "struct CheeseGame.UserInfo",
             "members": [
               {

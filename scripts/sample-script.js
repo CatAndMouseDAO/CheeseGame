@@ -18,10 +18,30 @@ async function main() {
   const initialIndex = '1000000000'
 
   NFT = await ethers.getContractFactory("NFT");
-  nft = await NFT.deploy();
+  nft = await NFT.attach("0x4e9c30CbD786549878049f808fb359741BF721ea");
 
   CHEEZ = await ethers.getContractFactory("CHEEZ");
-  cheez = await CHEEZ.deploy(0);
+  cheez = await CHEEZ.attach("0xBbD83eF0c9D347C85e60F1b5D2c58796dBE1bA0d");
+
+  Treasury = await ethers.getContractFactory("Treasury");
+  treasury = await Treasury.attach("0xf8c08c5aD8270424Ad914d379e85aC03a44fF996");
+
+  Rebaser = await ethers.getContractFactory("contracts/Rebase.sol:Rebaser");
+  miceRebaser = await Rebaser.deploy();
+  catRebaser = await Rebaser.deploy()
+  await miceRebaser.setIndex(initialIndex);
+  await catRebaser.setIndex(initialIndex);
+
+  CG = await ethers.getContractFactory("CheeseGame");
+  cg = await upgrades.deployProxy(CG, [nft.address, cheez.address, miceRebaser.address, catRebaser.address], { kind: 'uups' });
+
+  await miceRebaser.initialize( cg.address, nft.address, 0) 
+  await catRebaser.initialize( cg.address, nft.address, 1) 
+
+  Dist = await ethers.getContractFactory("Distributor");
+  dist = await Dist.deploy(treasury.address, cg.address, 600e9);
+
+  await cg.setDistributor(dist.address);
 
   Rebaser = await ethers.getContractFactory("contracts/Rebase.sol:Rebaser");
   miceRebaser = await Rebaser.deploy();
