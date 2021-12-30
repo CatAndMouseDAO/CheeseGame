@@ -25,6 +25,7 @@ describe('CheeseGame', function () {
 
     CG = await ethers.getContractFactory("CheeseGame");
     cg = await upgrades.deployProxy(CG, [nft.address, cheez.address, miceRebaser.address, catRebaser.address], { kind: 'uups' });
+    await cheez.mint(cg.address, 10000e9)
 
     await miceRebaser.initialize( cg.address, nft.address, 0) 
     await catRebaser.initialize( cg.address, nft.address, 1) 
@@ -115,5 +116,27 @@ describe('CheeseGame', function () {
     rewards = await cg.getRewards(owner.address, 0)
     //console.log(rewards)
     expect(parseInt(rewards.toString())).to.be.equal(600000000000);
+  });
+
+  it('Should distribute cat rewards', async function () { 
+    await nft.setApprovalForAll(cg.address, true);
+    await cg.stake(1, 10);
+    await cg.stake(0, 600);
+    index = await catRebaser.index()
+    console.log(index)
+
+    await network.provider.send("evm_increaseTime", [28801])
+    await network.provider.send("evm_mine")
+    await cg.rebase()
+    await cg.claimRewards(0)
+
+    await network.provider.send("evm_increaseTime", [28801])
+    await network.provider.send("evm_mine")
+    await cg.rebase()
+    index = await catRebaser.index()
+    console.log(index)
+    
+    let rewards = await cg.getRewards(owner.address, 1)
+    console.log(rewards)
   });
 });

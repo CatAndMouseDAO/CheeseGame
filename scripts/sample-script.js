@@ -31,6 +31,7 @@ async function main() {
 
   CG = await ethers.getContractFactory("CheeseGame");
   cg = await upgrades.deployProxy(CG, [nft.address, cheez.address, miceRebaser.address, catRebaser.address], { kind: 'uups' });
+
   console.log("cg deployed to: ", cg.address)
 
 }

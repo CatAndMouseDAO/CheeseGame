@@ -208,10 +208,13 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
         uint256 rewards = getRewards(msg.sender, id);
         if(rewards > 0) {
             if(id == MOUSE){
-                rewards = rewards * 3 / 4;
                 userInfo[msg.sender].timestamps[id] = block.timestamp;
+                userInfo[msg.sender].indexes[id] = rebasers[id].index();
+                nextCatPool +=  rewards / 4;
+                rewards = rewards * 3 / 4;
+            } else {
+                userInfo[msg.sender].indexes[id] = rebasers[id].index();
             }
-            userInfo[msg.sender].indexes[id] = rebasers[id].index();
             rewardsToken.transferFrom(address(this), msg.sender, rewards);
         }
     }
@@ -256,11 +259,11 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
        return (false, 0);
    }
 
-   function addTrap(address _address) public {
+   function addTrap(address _address) internal {
        traps.push(_address);
    }
 
-   function removeTrap(address _address) public {
+   function removeTrap(address _address) internal {
        (bool _isStakeholder, uint256 s) = isTrap(_address);
        if(_isStakeholder){
            traps[s] = traps[traps.length - 1];
@@ -268,7 +271,7 @@ contract CheeseGame is Initializable, OwnableUpgradeable, UUPSUpgradeable {
        }
     }
 
-   function removeTrapByIdx(uint256 idx) public {
+   function removeTrapByIdx(uint256 idx) internal {
         traps[idx] = traps[traps.length - 1];
         traps.pop();
     }
